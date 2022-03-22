@@ -33,10 +33,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")  // 로그아웃 성공 시 이동
         ;
 
-        http.authorizeRequests()
-                .mvcMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()
-                .mvcMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated()
+        http.authorizeRequests()    // 시큐리티 처리에 HttpServletRequest를 이용
+                .mvcMatchers("/", "/members/**", "/item/**", "/images/**").permitAll()  // permitAll()을 통해 모든 사용자가 로그인 없이 해당 경로게 접근할 수 없도록 설정
+                .mvcMatchers("/admin/**").hasRole("ADMIN")  // /admin으로 시작하는 경로는 해당 계정이 ADMIN Role일 경우에만 접근 가능하도록 설정.
+                .anyRequest().authenticated()   // 위 경로를 제외한 나머지 경로들은 모두 인증 요구
         ;
 
         http.exceptionHandling()
@@ -57,6 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**");
+        web.ignoring().antMatchers("/css/**", "/js/**", "/img/**"); // static 디렉터리 하위 파일은 인증을 무시
     }
 }
