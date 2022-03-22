@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestBuilders.formLogin;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc   // MockMvc 테스트를 위해 어노테이션 선언
 @Transactional
 @TestPropertySource(locations="classpath:application-test.properties")
 class MemberControllerTest {
@@ -26,12 +26,12 @@ class MemberControllerTest {
     private MemberService memberService;
 
     @Autowired
-    private MockMvc mockMvc;
+    private MockMvc mockMvc;    // 실체 객체와 비슷하지만 테스트에 필요한 기능만 갖는 가짜 객체
 
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public Member createMember(String email, String password){
+    public Member createMember(String email, String password){  // 로그인 예제 진행 전 로그인 등록 메소드
         MemberFormDto memberFormDto = new MemberFormDto();
         memberFormDto.setEmail(email);
         memberFormDto.setName("홍길동");
@@ -48,10 +48,10 @@ class MemberControllerTest {
         String password = "1234";
         this.createMember(email, password);
         mockMvc.perform(formLogin().userParameter("email")
-                .loginProcessingUrl("/members/login")
+                .loginProcessingUrl("/members/login")   // 회원 가입 메소드 실행 후 가입된 회원 정보로 테스트. userParameter()를 이용
                 .user(email).password(password))
-                .andExpect(SecurityMockMvcResultMatchers.authenticated());
-    }
+                .andExpect(SecurityMockMvcResultMatchers.authenticated());  // 로그인 성공 인증되면 테스트 통과과
+   }
 
     @Test
     @DisplayName("로그인 실패 테스트")

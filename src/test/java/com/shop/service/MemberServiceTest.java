@@ -14,8 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-@Transactional
-@TestPropertySource(locations="classpath:application-test.properties")
+@Transactional  //테스트 후 롤벡 처리
+@TestPropertySource(locations="classpath:application-test.properties")  //테스트옹 properties 설정
 class MemberServiceTest {
 
     @Autowired
@@ -51,9 +51,9 @@ class MemberServiceTest {
         Member member1 = createMember();
         Member member2 = createMember();
         memberService.saveMember(member1);
-        Throwable e = assertThrows(IllegalStateException.class, () -> {
+        Throwable e = assertThrows(IllegalStateException.class, () -> { //Junit의 Assertions 클래스의 assertThrows 메소드를 잉ㅇ하면 예외 처리 테스트 가능 첫번째에 예외처리
             memberService.saveMember(member2);});
-        assertEquals("이미 가입된 회원입니다.", e.getMessage());
+        assertEquals("이미 가입된 회원입니다.", e.getMessage());  // 발생한 예외 메시지가 예상 결과와 맞는지 검증
     }
 
 

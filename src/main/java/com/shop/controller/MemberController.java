@@ -30,8 +30,8 @@ public class MemberController {
 
     @PostMapping(value = "/new")
     public String newMember(@Valid MemberFormDto memberFormDto, BindingResult bindingResult, Model model){
-
-        if(bindingResult.hasErrors()){
+                            //검증하려는 객체의 앞에 @Valid 어노테이션을 선언하고, 파라미터로 bindingResult 객체를 추가.
+        if(bindingResult.hasErrors()){  // 검사 후 결과는 bindingResult에 담기. 에러가 있으면 회원 가입 페이지로 이동
             return "member/memberForm";
         }
 
