@@ -93,7 +93,7 @@
 <!--권한별 페이지 도와주는-->
         <dependency>
             <groupId>org.thymeleaf.extras</groupId>
-            <artifactId></artifactId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
 
     </dependencies>
